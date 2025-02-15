@@ -1,0 +1,123 @@
+/* SlideCard.css */
+
+.slide-card {
+justify-content: center;
+  display: flex;
+  
+}
+button{
+  color:black;
+}
+
+.slide-card-content {
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  justify-content: center;
+   border-radius: ;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  
+}
+
+/* Responsive text sizes */
+/* Responsive text sizes */
+.slide-card-title {
+  justify-content: center;
+  font-size: 3rem;
+  font-weight: bold;
+  color: #222; /* Ensures visibility on any background */
+}
+
+/* Description styling */
+.slide-card-desc {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  justify-content: center;
+  color: #333; /* Readable on light and dark backgrounds */
+ 
+}
+
+/* Button styling */
+.slide-card-button {
+  
+  width: fit-content;
+  background-color: #ffffff;
+  border: 2px solid rgb(0, 0, 0);
+  color: black;
+  border-radius: 7rem;
+  padding: 10px 20px;
+  font-size: 1rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.slide-card-button:hover {
+  background-color: white;
+  color: black;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .slide-card-content {
+    height: fit-content;
+    width: fit-content;
+  }
+
+  .slide-card-title {
+    font-size: 2.5rem;
+  }
+
+  .slide-card-desc {
+    font-size: 1.1rem;
+  }
+
+  .slide-card-button {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .slide-card-content {
+    height: 55vh;
+    width: 85vw;
+  }
+
+  .slide-card-title {
+    font-size: 2rem;
+  }
+
+  .slide-card-desc {
+    font-size: 1rem;
+  }
+
+  .slide-card-button {
+    font-size: 0.85rem;
+    padding: 7px 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .slide-card-content {
+    height: 50vh;
+    width: 90vw;
+    border-radius: 2rem;
+    padding: 1.5rem;
+  }
+
+  .slide-card-title {
+    font-size: 1.8rem;
+  }
+
+  .slide-card-desc {
+    font-size: 0.9rem;
+    max-width: 90%;
+  }
+
+  .slide-card-button {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+}

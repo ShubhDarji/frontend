@@ -1,0 +1,156 @@
+/* Reset & Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+
+}
+.img-nav {
+  pointer-events: auto; /* Ensures normal click behavior */
+}
+
+.img-nav:hover {
+  filter: none !important; /* Prevents any hover effect */
+  transform: none !important;
+  opacity: 1 !important;
+}
+
+
+
+
+/* Navbar Styles */
+nav {
+  background-color: #ffffff; /* Dark Blue */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  padding: 12px 0;
+  color: rgb(5, 5, 5);
+
+  z-index: 100;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 20px;
+}
+
+nav li {
+  height: 70px;
+}
+
+nav a  {
+  margin:0rem .5rem;
+  height: 100%;
+  padding: 10px 10px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  color: rgb(0, 0, 0); /* White Text for Contrast */
+  font-weight: 500;
+  transition: all 0.3s ease-in-out;
+  border-radius: .8rem;
+}
+
+nav a:hover {
+  transition: .5 ease-in;
+background-color: #000000;
+  color: rgb(255, 255, 255);
+}
+
+
+/* Move Logo to the Left */
+nav li:first-child {
+  margin-right: auto;
+  font-size: 20px;
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+}
+
+/* Sidebar Styles */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -250px;
+  height: 100vh;
+  width: 250px;
+   /* Dark Blue with Transparency */
+   background-color: #ffffff46;
+  backdrop-filter: blur(10px);
+  box-shadow: -10px 0 15px rgba(0, 0, 0, 0.1);
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-top: 20px;
+  transition: right 0.4s ease-in-out;
+}
+
+.sidebar.visible {
+  right: 0;
+}
+
+.sidebar li {
+  width:100%;
+
+
+}
+
+.sidebar a {
+  width: 100%;
+  padding: 15px 30px;
+  font-size: 18px;
+  font-weight: 500;
+ 
+  border-radius: 6rem;
+  transition: background 0.3s ease;
+}
+
+.sidebar a:hover {
+  transition: border .7 ease-in;
+  color: rgb(255, 255, 255);
+
+  border-radius: 6rem;
+  background:#070707
+}
+
+/* Menu Button */
+.menu-button {
+  display: none;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.menu-button:hover {
+  transform: scale(1.1);
+}
+
+/* Responsive Design */
+@media (max-width: 710px) {
+  .hideOnMobile {
+    display: none;
+  }
+  .menu-button {
+    display: block;
+  }
+}
+
+@media (max-width:310px) {
+  .sidebar {
+    width: 100%;
+  }
+}
+
+.img-nav{
+  width:auto;
+  max-height: 90px;
+  
+}

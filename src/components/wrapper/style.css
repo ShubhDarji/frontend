@@ -1,0 +1,115 @@
+/* Reset styles */
+
+
+
+/* Wrapper */
+.wrapper {
+  background-color: #ffffff;
+  padding: 50px 30px;
+}
+
+.wrapper-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  justify-content: center;
+}
+
+.wrapper h2 {
+  margin-bottom: 40px;
+  font-size: 2rem;
+  font-weight: bold;
+  
+  justify-content: center;
+  
+}
+
+/* Brand Grid */
+.brand-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Brand Item */
+.brand-item {
+ 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+
+/* Brand Link */
+.brand-link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Brand Icon */
+.brand-icon {
+  border: black 2px solid;
+  box-shadow: 0px 40px 20px rgba(209, 0, 0, 0.781);
+  padding-right:.3rem;
+  padding-left:.3rem;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+}
+
+.brand-icon img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+.brand-icon:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Brand Name */
+.brand-item h3 {
+  color: #020202;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .wrapper {
+    padding: 30px 15px;
+  }
+
+  .brand-item h3 {
+    font-size: 1rem;
+  }
+
+  .brand-icon {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 576px) {
+  .wrapper h2 {
+    font-size: 1.5rem;
+  }
+
+  .brand-item h3 {
+    font-size: 0.9rem;
+  }
+}

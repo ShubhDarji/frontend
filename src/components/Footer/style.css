@@ -1,0 +1,113 @@
+footer {
+
+
+  padding: 60px 0;
+  color: black;
+ background: linear-gradient(155deg, #ff4e50, #fc913a, #f9d423, #e1f5c4, #a8e6cf);
+  background-size: 400% 400%;
+  animation: gradientAnimation 8s ease infinite;
+  color: rgb(0, 0, 0); /* Ensures text remains readable */
+  padding: 100px 0;
+  text-align: center;
+ }
+ 
+ @keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+ }
+
+
+footer .container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+footer .box {
+  flex: 1;
+  min-width: 250px;
+  padding: 10px;
+}
+
+footer .logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+footer h1 {
+  font-size: 26px;
+  font-weight: 700;
+  color: black;
+  margin-bottom: 15px;
+}
+
+footer h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color:black;
+  margin-bottom: 15px;
+}
+
+footer p {
+  font-size: 15px;
+  color: black;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+footer ul {
+  list-style: none;
+  padding: 1rem;
+}
+
+footer li { border: solid rgba(0, 0, 0, 0) .1rem;
+  padding: 0rem .5rem;
+  font-size: 14px;
+  color: black;
+  margin-bottom: 8px;
+  transition: color 0.3s;
+  width: fit-content;
+}
+
+footer li:hover {
+  border-radius: .5rem;
+  background-color: #493D9E;
+  width: fit-content;
+  padding: 0rem .5rem;
+  border: solid black .1rem;
+  color: white;
+  cursor: pointer;
+}
+
+footer .social-icons {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+footer .social-icons a {
+  color: #ffffff;
+  font-size: 18px;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+footer .social-icons a:hover {
+  transition: ease-in .5s;
+  color: #ff3b30;
+  transform: scale(1.1);
+}
+
+footer .copyright {
+  text-align: center;
+  font-size: 14px;
+  color: #999999;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #2a4a6a;
+}
