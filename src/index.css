@@ -53,7 +53,7 @@ button {
 }
 
 
-.homeSlide {
+.home-slide {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -62,7 +62,7 @@ button {
  background-size: 400% 400%;
  animation: gradientAnimation 8s ease infinite;
  color: rgb(0, 0, 0); /* Ensures text remains readable */
- padding: 100px 0;
+ padding:50px 0;
  text-align: center;
 }
 
@@ -72,8 +72,8 @@ button {
  100% { background-position: 0% 50%; }
 }
   
- .container {
-  width: fit-content;
+ .conto {
+  width: 100%;
   height: fit-content;
   justify-content: center;
   position: relative;

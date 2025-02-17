@@ -3,154 +3,159 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-
-
+  font-family: Arial, sans-serif;
 }
-.img-nav {
-  pointer-events: auto; /* Ensures normal click behavior */
-}
-
-.img-nav:hover {
-  filter: none !important; /* Prevents any hover effect */
-  transform: none !important;
-  opacity: 1 !important;
-}
-
-
-
 
 /* Navbar Styles */
-nav {
-  background-color: #ffffff; /* Dark Blue */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  padding: 12px 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  position: relative;
-  width: 100%;
+  position: sticky;
   top: 0;
-  left: 0;
+  width: 100%;
   z-index: 1000;
-  padding: 12px 0;
-  color: rgb(5, 5, 5);
-
-  z-index: 100;
 }
 
-nav ul {
+.navbar-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
+/* Logo */
+.logo img {
+  height: 45px;
+}
+
+/* Navigation Links */
+.nav-links {
+  display: flex;
+  gap: 20px;
   list-style: none;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 0 20px;
 }
 
-nav li {
-  height: 70px;
-}
-
-nav a  {
-  margin:0rem .5rem;
-  height: 100%;
-  padding: 10px 10px;
+.nav-links li a {
   text-decoration: none;
+  color: #222222; /* Dark Gray for better readability */
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.nav-links li a:hover {
+  background: #0071C5;
+  color: white;
+}
+
+/* Search Bar */
+.search-bar input {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  width: 220px;
+  outline: none;
+  transition: border 0.3s ease;
+}
+
+.search-bar input:focus {
+  border-color: #0071C5;
+}
+
+/* Icons Section */
+.icons {
   display: flex;
   align-items: center;
-  color: rgb(0, 0, 0); /* White Text for Contrast */
-  font-weight: 500;
-  transition: all 0.3s ease-in-out;
-  border-radius: .8rem;
+  gap: 15px;
 }
 
-nav a:hover {
-  transition: .5 ease-in;
-background-color: #000000;
-  color: rgb(255, 255, 255);
+/* Cart Icon with Badge */
+.cart-icon {
+  position: relative;
 }
 
-
-/* Move Logo to the Left */
-nav li:first-child {
-  margin-right: auto;
-  font-size: 20px;
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -8px;
+  background: #FF3B30;
+  color: white;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 50%;
   font-weight: bold;
-  color: rgb(255, 255, 255);
 }
 
-/* Sidebar Styles */
+/* Mobile Menu Button */
+.menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Sidebar (Mobile Navigation) */
 .sidebar {
   position: fixed;
+  left: -100%;
   top: 0;
-  right: -250px;
-  height: 100vh;
   width: 250px;
-   /* Dark Blue with Transparency */
-   background-color: #ffffff46;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(10px);
-  box-shadow: -10px 0 15px rgba(0, 0, 0, 0.1);
-  list-style: none;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+  transition: left 0.3s ease;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding-top: 20px;
-  transition: right 0.4s ease-in-out;
+  padding: 20px;
 }
 
 .sidebar.visible {
-  right: 0;
+  left: 0;
 }
 
 .sidebar li {
-  width:100%;
-
-
+  margin: 15px 0;
 }
 
-.sidebar a {
-  width: 100%;
-  padding: 15px 30px;
+.sidebar li a {
+  text-decoration: none;
   font-size: 18px;
-  font-weight: 500;
- 
-  border-radius: 6rem;
-  transition: background 0.3s ease;
+  color: #222222;
+  font-weight: bold;
+  transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+  padding: 10px;
+  border-radius: 6px;
 }
 
-.sidebar a:hover {
-  transition: border .7 ease-in;
-  color: rgb(255, 255, 255);
-
-  border-radius: 6rem;
-  background:#070707
+.sidebar li a:hover {
+  background: #0071C5;
+  color: white;
 }
 
-/* Menu Button */
-.menu-button {
-  display: none;
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out;
+/* Hide Nav Links on Mobile */
+.hideOnMobile {
+  display: flex;
 }
 
-.menu-button:hover {
-  transform: scale(1.1);
-}
-
-/* Responsive Design */
-@media (max-width: 710px) {
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
   .hideOnMobile {
     display: none;
   }
-  .menu-button {
+  .menu-btn {
     display: block;
   }
 }
 
-@media (max-width:310px) {
+/* Responsive Sidebar for Smaller Screens */
+@media (max-width: 400px) {
   .sidebar {
     width: 100%;
   }
-}
-
-.img-nav{
-  width:auto;
-  max-height: 90px;
-  
 }

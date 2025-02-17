@@ -5,61 +5,78 @@ import { ToastContainer, toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../app/features/cart/cartSlice";
 import "react-toastify/dist/ReactToastify.css";
+import { Star } from "lucide-react";
 
-const ProductCard = ({ title, productItem }) => {
+const ProductCard = ({ productItem }) => {
   const dispatch = useDispatch();
   const router = useNavigate();
+
   const handleClick = () => router(`/shop/${productItem.id}`);
 
-  const handleAdd = (productItem) => {
+  const handleAdd = () => {
     dispatch(addToCart({ product: productItem, num: 1 }));
     toast.success("Product has been added to cart!", {
-      position: "top-right",  // ✅ Fixed position
+      position: "top-right",
       autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
-      progressStyle: { background: "green" }, // ✅ Green progress bar
-      className: "custom-toast", // ✅ Custom shape styling
+      progressStyle: { background: "green" },
+      className: "custom-toast",
     });
   };
 
   return (
-    <Col md={3} sm={5} xs={10} className="product mtop">
-      {title === "Big Discount" ? (
-        <span className="discount">{productItem.discount}% Off</span>
-      ) : null}
-      <img
-        loading="lazy"
-        onClick={() => handleClick()}
-        src={productItem.imgUrl}
-        alt=""
-      />
-      <div className="product-like">
-        <ion-icon name="heart-outline"></ion-icon>
+    <Col md={3} sm={5} xs={10} className="product-card">
+      {/* Product Image Section */}
+      <div className="product-image" onClick={handleClick}>
+        <img
+          loading="lazy"
+          src={productItem.imgUrl}
+          alt={productItem.productName}
+          className="product-img"
+        />
+        {/* Discount Badge */}
+        {productItem.discount && (
+          <span className="discount-badge">{productItem.discount}% OFF</span>
+        )}
       </div>
+
+      {/* Product Details */}
       <div className="product-details">
-        <h3 onClick={() => handleClick()}>{productItem.productName}</h3>
-        <div className="rate">
-          <i className="fa fa-star"></i>
-          <i className="fa fa-star"></i>
-          <i className="fa fa-star"></i>
-          <i className="fa fa-star"></i>
-          <i className="fa fa-star"></i>
+        <h3 className="product-title" onClick={handleClick}>
+          {productItem.productName}
+        </h3>
+
+        {/* Star Ratings */}
+        <div className="product-rating">
+          {[...Array(5)].map((_, index) => (
+            <Star
+              key={index}
+              className={`star-icon ${
+                index < productItem.rating ? "text-yellow-500" : "text-gray-300"
+              }`}
+              fill={index < productItem.rating ? "currentColor" : "none"}
+            />
+          ))}
+     <span className="rating-value">({productItem.reviews.length} Reviews)</span>
+
         </div>
-        <div className="price">
-          <h4>₹{productItem.price}</h4>
-          <button
-            aria-label="Add"
-            type="submit"
-            className="add"
-            onClick={() => handleAdd(productItem)}
-          >
-            add to cart
-          </button>
+
+        {/* Price Section */}
+        <div className="product-price">
+          <h4 className="current-price">₹{productItem.price}</h4>
+          <span className="original-price">₹{productItem.originalPrice}</span>
         </div>
+
+        {/* Add to Cart Button */}
+        <button className="add-to-cart-btn" onClick={handleAdd}>
+          Add to Cart
+        </button>
       </div>
+
+      <ToastContainer />
     </Col>
   );
 };

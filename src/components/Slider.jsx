@@ -8,27 +8,42 @@ import { SliderData } from "../utils/products";
 
 const SliderHome = () => {
   const settings = {
-    dots: true,  // Enables navigation dots
-    arrows: true,  // Hides navigation arrows
+    dots: true,
+    arrows: false, 
     infinite: true,
+    speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 4000,  // Adjusted autoplay speed for smooth transitions
-    fade: true,  // Adds a fade effect for a premium look
-    pauseOnHover: false,
-    
+    autoplaySpeed: 4000,
+    pauseOnHover: true,
+    responsive: [
+      {
+        breakpoint: 1024, // Tablets
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 768, // Mobile
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   return (
-    <section className="homeSlide">
-      <Container>
+    <section className="home-slide">
+      <div className="conto">
         <Slider {...settings}>
-          {SliderData.map((item, index) => (
-            <SlideCard key={index} title={item.title} cover={item.cover} desc={item.desc} />
+          {SliderData.map((item) => (
+            <SlideCard key={item.id} title={item.title} cover={item.cover} desc={item.desc} />
           ))}
         </Slider>
-      </Container>
+      </div>
     </section>
   );
 };
