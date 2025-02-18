@@ -27,6 +27,16 @@ const ProductCard = ({ productItem }) => {
     });
   };
 
+  // Calculate discount dynamically
+  const discount =
+    productItem.originalPrice > productItem.price
+      ? Math.round(
+          ((productItem.originalPrice - productItem.price) /
+            productItem.originalPrice) *
+            100
+        )
+      : 0;
+
   return (
     <Col md={3} sm={5} xs={10} className="product-card">
       {/* Product Image Section */}
@@ -37,10 +47,8 @@ const ProductCard = ({ productItem }) => {
           alt={productItem.productName}
           className="product-img"
         />
-        {/* Discount Badge */}
-        {productItem.discount && (
-          <span className="discount-badge">{productItem.discount}% OFF</span>
-        )}
+        {/* Show Discount Badge if there is a discount */}
+        {discount > 0 && <span className="discount-badge">{discount}% OFF</span>}
       </div>
 
       {/* Product Details */}
@@ -60,8 +68,7 @@ const ProductCard = ({ productItem }) => {
               fill={index < productItem.rating ? "currentColor" : "none"}
             />
           ))}
-     <span className="rating-value">({productItem.reviews.length} Reviews)</span>
-
+          <span className="rating-value">({productItem.reviews.length} Reviews)</span>
         </div>
 
         {/* Price Section */}

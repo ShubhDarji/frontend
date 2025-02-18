@@ -90,6 +90,7 @@ export const newdata =[
       productName: "Voltas 1.5 Ton 5 Star Inverter Split AC",
       companyName: "Voltas",
       price: 42990,
+      originalPrice:50000,
       shortDesc: "Energy-efficient split AC with inverter technology for optimal cooling.",
       description: "Stay cool and comfortable all year round with this Voltas Inverter Split AC. Its 1.5-ton capacity is suitable for medium-sized rooms, and the 5-star energy rating ensures lower electricity bills.",
       reviews: [
@@ -112,6 +113,7 @@ export const newdata =[
     productName: "Samsung 678L Side-by-Side Refrigerator",
     companyName: "Samsung",
     price: 89990, 
+    originalPrice:50000,
     shortDesc: "Spacious and feature-rich refrigerator for large families.",
     description: "This Samsung Side-by-Side Refrigerator boasts a generous 678L capacity, providing ample space for all your groceries. It features advanced cooling technology, an ice and water dispenser, and a sleek design that complements modern kitchens.",
     reviews: [
@@ -135,6 +137,7 @@ export const newdata =[
     productName: "LG 7kg Fully Automatic Front Load Washing Machine",
     companyName: "LG",
     price: 39990,
+    originalPrice:50000,
     shortDesc: "Advanced front-load washing machine with multiple wash programs.",
     description: "This LG Fully Automatic Front Load Washing Machine makes laundry day a breeze. With a 7kg capacity, it's suitable for small to medium-sized families. It features multiple wash programs, a sleek design, and energy-efficient operation.",
     reviews: [
@@ -163,6 +166,7 @@ export const discoutProducts =[
       productName: "Voltas 1.5 Ton 5 Star Inverter Split AC",
       companyName: "Voltas",
       price: 42990,
+      originalPrice:50000,
       shortDesc: "Energy-efficient split AC with inverter technology for optimal cooling.",
       description: "Stay cool and comfortable all year round with this Voltas Inverter Split AC. Its 1.5-ton capacity is suitable for medium-sized rooms, and the 5-star energy rating ensures lower electricity bills.",
       reviews: [
@@ -186,6 +190,7 @@ export const discoutProducts =[
     productName: "Samsung 678L Side-by-Side Refrigerator",
     companyName: "Samsung",
     price: 89990, 
+    originalPrice:100000,
     shortDesc: "Spacious and feature-rich refrigerator for large families.",
     description: "This Samsung Side-by-Side Refrigerator boasts a generous 678L capacity, providing ample space for all your groceries. It features advanced cooling technology, an ice and water dispenser, and a sleek design that complements modern kitchens.",
     reviews: [
@@ -210,6 +215,7 @@ export const discoutProducts =[
     productName: "LG 7kg Fully Automatic Front Load Washing Machine",
     companyName: "LG",
     price: 39990,
+    originalPrice:50000,
     shortDesc: "Advanced front-load washing machine with multiple wash programs.",
     description: "This LG Fully Automatic Front Load Washing Machine makes laundry day a breeze. With a 7kg capacity, it's suitable for small to medium-sized families. It features multiple wash programs, a sleek design, and energy-efficient operation.",
     reviews: [
@@ -240,6 +246,7 @@ export const salebest=[
     productName: "Voltas 1.5 Ton 5 Star Inverter Split AC",
     companyName: "Voltas",
     price: 42990,
+    originalPrice:50000,
     shortDesc: "Energy-efficient split AC with inverter technology for optimal cooling.",
     description: "Stay cool and comfortable all year round with this Voltas Inverter Split AC. Its 1.5-ton capacity is suitable for medium-sized rooms, and the 5-star energy rating ensures lower electricity bills.",
     reviews: [
@@ -262,6 +269,7 @@ export const salebest=[
   productName: "Samsung 678L Side-by-Side Refrigerator",
   companyName: "Samsung",
   price: 89990, 
+  originalPrice:100000,
   shortDesc: "Spacious and feature-rich refrigerator for large families.",
   description: "This Samsung Side-by-Side Refrigerator boasts a generous 678L capacity, providing ample space for all your groceries. It features advanced cooling technology, an ice and water dispenser, and a sleek design that complements modern kitchens.",
   reviews: [
@@ -285,6 +293,7 @@ export const salebest=[
   productName: "LG 7kg Fully Automatic Front Load Washing Machine",
   companyName: "LG",
   price: 39990,
+  originalPrice:50000,
   shortDesc: "Advanced front-load washing machine with multiple wash programs.",
   description: "This LG Fully Automatic Front Load Washing Machine makes laundry day a breeze. With a 7kg capacity, it's suitable for small to medium-sized families. It features multiple wash programs, a sleek design, and energy-efficient operation.",
   reviews: [
@@ -342,6 +351,7 @@ export const products = [
     productName: "Samsung 678L Side-by-Side Refrigerator",
     companyName: "Samsung",
     price: 89990, 
+    originalPrice:100000,
     shortDesc: "Spacious and feature-rich refrigerator for large families.",
     description: "This Samsung Side-by-Side Refrigerator boasts a generous 678L capacity, providing ample space for all your groceries. It features advanced cooling technology, an ice and water dispenser, and a sleek design that complements modern kitchens.",
     reviews: [
@@ -367,6 +377,7 @@ export const products = [
     productName: "LG 710L Frost Free Refrigerator",
     companyName: "LG",
     price: 74990, 
+    originalPrice:80000,
     shortDesc: "Advanced frost-free refrigerator with smart inverter technology.",
     description: "Experience the convenience of frost-free technology with this LG refrigerator. Its smart inverter compressor ensures optimal cooling and energy efficiency. With a spacious 710L capacity, it can accommodate the needs of a large household.",
     reviews: [
@@ -392,6 +403,7 @@ export const products = [
     productName: "Whirlpool 265L Frost Free Double Door Refrigerator",
     companyName: "Whirlpool",
     price: 32990,
+    originalPrice:50000,
     shortDesc: "Stylish and efficient double-door refrigerator with frost-free technology.",
     description: "This Whirlpool refrigerator combines style and functionality. Its frost-free design prevents ice buildup, ensuring efficient cooling. With a 265L capacity, it's perfect for small to medium-sized families.",
     reviews: [
@@ -418,6 +430,7 @@ export const products = [
     productName: "Voltas 1.5 Ton 5 Star Inverter Split AC",
     companyName: "Voltas",
     price: 42990,
+    originalPrice:50000,
     shortDesc: "Energy-efficient split AC with inverter technology for optimal cooling.",
     description: "Stay cool and comfortable all year round with this Voltas Inverter Split AC. Its 1.5-ton capacity is suitable for medium-sized rooms, and the 5-star energy rating ensures lower electricity bills.",
     reviews: [
@@ -443,6 +456,7 @@ export const products = [
     productName: "Daikin 1.0 Ton 3 Star Inverter Split AC",
     companyName: "Daikin",
     price: 36990,
+    originalPrice:50000,
     shortDesc: "Reliable and efficient split AC with inverter technology.",
     description: "Experience superior cooling performance with this Daikin Inverter Split AC. Its 1.0-ton capacity is ideal for small to medium-sized rooms, and the inverter compressor ensures consistent cooling and energy savings.",
     reviews: [
@@ -468,6 +482,7 @@ export const products = [
     productName: "Blue Star 1.0 Ton 3 Star Inverter Split AC",
     companyName: "Blue Star",
     price: 28990, 
+    originalPrice:50000,
     shortDesc: "Affordable and efficient split AC with inverter technology.",
     description: "Experience optimal cooling performance with this Blue Star Inverter Split AC. Its 1.0-ton capacity is perfect for small to medium-sized rooms, and the inverter compressor ensures consistent cooling and energy savings.",
     reviews: [
@@ -494,6 +509,7 @@ export const products = [
     productName: "Daikin 1.0 Ton 3 Star Inverter Split AC",
     companyName: "Daikin",
     price: 36990,
+    originalPrice:50000,
     shortDesc: "Reliable and efficient split AC with inverter technology.",
     description: "Experience superior cooling performance with this Daikin Inverter Split AC. Its 1.0-ton capacity is ideal for small to medium-sized rooms, and the inverter compressor ensures consistent cooling and energy savings.",
     reviews: [
@@ -545,6 +561,7 @@ export const products = [
     productName: "LG 7kg Fully Automatic Front Load Washing Machine",
     companyName: "LG",
     price: 39990,
+    originalPrice:50000,
     shortDesc: "Advanced front-load washing machine with multiple wash programs.",
     description: "This LG Fully Automatic Front Load Washing Machine makes laundry day a breeze. With a 7kg capacity, it's suitable for small to medium-sized families. It features multiple wash programs, a sleek design, and energy-efficient operation.",
     reviews: [
@@ -571,6 +588,7 @@ export const products = [
     productName: "LG 7kg Fully Automatic Front Load Washing Machine",
     companyName: "LG",
     price: 39990,
+    originalPrice:50000,
     shortDesc: "Advanced front-load washing machine with multiple wash programs.",
     description: "This LG Fully Automatic Front Load Washing Machine makes laundry day a breeze. With a 7kg capacity, it's suitable for small to medium-sized families. It features multiple wash programs, a sleek design, and energy-efficient operation.",
     reviews: [
@@ -595,6 +613,7 @@ export const products = [
     productName: "LG 7kg Fully Automatic Front Load Washing Machine",
     companyName: "LG",
     price: 39990,
+    originalPrice:50000,
     shortDesc: "Advanced front-load washing machine with multiple wash programs.",
     description: "This LG Fully Automatic Front Load Washing Machine makes laundry day a breeze. With a 7kg capacity, it's suitable for small to medium-sized families. It features multiple wash programs, a sleek design, and energy-efficient operation.",
     reviews: [
@@ -620,6 +639,7 @@ export const products = [
     productName: "LG 7kg Fully Automatic Front Load Washing Machine",
     companyName: "LG",
     price: 39990,
+    originalPrice:50000,
     shortDesc: "Advanced front-load washing machine with multiple wash programs.",
     description: "This LG Fully Automatic Front Load Washing Machine makes laundry day a breeze. With a 7kg capacity, it's suitable for small to medium-sized families. It features multiple wash programs, a sleek design, and energy-efficient operation.",
     reviews: [
@@ -646,6 +666,7 @@ export const products = [
     productName: "Symphony Diet 12T Personal Air Cooler",
     companyName: "Symphony",
     price: 6490,
+    originalPrice:10000,
     shortDesc: "Compact and portable air cooler for personal cooling.",
     description: "Beat the heat with this Symphony Diet 12T Personal Air Cooler. Its compact size makes it perfect for small rooms and personal spaces. It features a 12-liter water tank, three-speed control, and low power consumption.",
     reviews: [
@@ -671,6 +692,7 @@ export const products = [
     productName: "Symphony Diet 12T Personal Air Cooler",
     companyName: "Symphony",
     price: 6490,
+    originalPrice:10000,
     shortDesc: "Compact and portable air cooler for personal cooling.",
     description: "Beat the heat with this Symphony Diet 12T Personal Air Cooler. Its compact size makes it perfect for small rooms and personal spaces. It features a 12-liter water tank, three-speed control, and low power consumption.",
     reviews: [
@@ -695,6 +717,7 @@ export const products = [
     productName: "Symphony Diet Personal Air Cooler",
     companyName: "Symphony",
     price: 6490,
+    originalPrice:10000,
     shortDesc: "Compact and portable air cooler for personal cooling.",
     description: "Beat the heat with this Symphony Diet 12T Personal Air Cooler. Its compact size makes it perfect for small rooms and personal spaces. It features a 12-liter water tank, three-speed control, and low power consumption.",
     reviews: [
@@ -719,6 +742,8 @@ export const products = [
     productName: "Symphony Diet 12T Personal Air Cooler",
     companyName: "Symphony",
     price: 6490,
+    originalPrice:10000,
+    
     shortDesc: "Compact and portable air cooler for personal cooling.",
     description: "Beat the heat with this Symphony Diet 12T Personal Air Cooler. Its compact size makes it perfect for small rooms and personal spaces. It features a 12-liter water tank, three-speed control, and low power consumption.",
     reviews: [
@@ -743,6 +768,7 @@ export const products = [
     productName: "Symphony Diet 12T Personal Air Cooler",
     companyName: "Symphony",
     price: 6490,
+    originalPrice:10000,
     shortDesc: "Compact and portable air cooler for personal cooling.",
     description: "Beat the heat with this Symphony Diet 12T Personal Air Cooler. Its compact size makes it perfect for small rooms and personal spaces. It features a 12-liter water tank, three-speed control, and low power consumption.",
     reviews: [
@@ -767,6 +793,7 @@ export const products = [
     productName: "Symphony Diet 12T Personal Air Cooler",
     companyName: "Symphony",
     price: 6490,
+    originalPrice:10000,
     shortDesc: "Compact and portable air cooler for personal cooling.",
     description: "Beat the heat with this Symphony Diet 12T Personal Air Cooler. Its compact size makes it perfect for small rooms and personal spaces. It features a 12-liter water tank, three-speed control, and low power consumption.",
     reviews: [
@@ -793,6 +820,8 @@ export const products = [
     productName: "Samsung 138 cm (55 inches) Crystal 4K Series Ultra HD Smart LED TV",
     companyName: "Samsung",
     price: 52990,
+    originalPrice:70000,
+
     shortDesc: "Immersive 4K Ultra HD Smart LED TV with crystal-clear picture quality.",
     description: "Experience stunning visuals with this Samsung Crystal 4K Series Ultra HD Smart LED TV. Its 55-inch display delivers vibrant colors and sharp details. Enjoy your favorite content with smart features and a sleek design.",
     reviews: [
@@ -819,6 +848,7 @@ export const products = [
     productName: "IFB 30 L Convection Microwave Oven",
     companyName: "IFB",
     price: 18990,
+  originalPrice:20000,
     shortDesc: "Versatile convection microwave oven for baking, grilling, and reheating.",
     description: "This IFB Convection Microwave Oven is a kitchen essential. With a 30-liter capacity, it's suitable for families of all sizes. Bake delicious cakes, grill meat to perfection, or reheat leftovers with ease.",
     reviews: [
