@@ -66,7 +66,7 @@ const Navbar = () => {
 
         {/* User & Cart Icons */}
         <div className="icons">
-          <Link to="/login"><img src={UserIcon} alt="User" width={26} height={26} /></Link>
+          <Link to="/profile"><img src={UserIcon} alt="User" width={26} height={26} /></Link>
           <Link to="/cart" className="cart-icon">
             <img src={CartIcon} alt="Cart" width={26} height={26} />
             {cartCount > 0 && <span className="cart-count">{cartCount}</span>}

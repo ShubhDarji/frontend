@@ -7,7 +7,7 @@ import Footer from "./components/Footer/Footer";
 import Loader from "./components/Loader/Loaader";
 import Brand from "./pages/Brand";
 import Login from "./pages/Login";
-
+import Profile from "./pages/Profile";
 import Signup from "./pages/Signup"
 import Register from "./pages/Register";
 const Home = lazy(() => import("./pages/Home"));
@@ -48,6 +48,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/Profile" element={<Profile/>} />
         </Routes>
         <Footer/>
      </Router>

@@ -14,6 +14,9 @@ const Home = () => {
   );
 
   const bestSale = products.filter((item) => item.category === "tv");
+
+  const featuredProducts = products.filter((item) => item.category === "featured");
+
   useWindowScrollToTop();
   return (
     <Fragment>
@@ -24,7 +27,10 @@ const Home = () => {
       <hr />
       <Section title="New Arrivals" productItems={newArrivalData} />
       <hr />
-      <Section title="Best Sales" productItems={salebest} />
+      <Section title="Best Sale" productItems={bestSale} />
+      <hr />
+      <Section title="Featured Products" productItems={featuredProducts} />
+      <hr />
     </Fragment>
   );
 };

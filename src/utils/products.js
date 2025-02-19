@@ -370,6 +370,7 @@ export const products = [
     ],
     avgRating: 4.7,
     imgUrl: refrigeratorImage01, // Replace with actual image import
+    featured: true, // Added this line
   },
   {
     id: "02",
@@ -449,6 +450,7 @@ export const products = [
     ],
     avgRating: 4.9,
     imgUrl: acImage01, // Replace with actual image import
+    featured: true, // Added this line
   },
   {
     id: "05",
@@ -840,6 +842,7 @@ export const products = [
     ],
     avgRating: 4.9,
     imgUrl: tvImage01, // Replace with actual image import
+    featured: true, // Added this line
   },
   // Microwave Oven (Added category)
   {

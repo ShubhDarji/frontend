@@ -1,0 +1,67 @@
+.profile-container {
+  padding: 2rem;
+  background-color: #4c40a6;
+  color: white;
+}
+
+.profile-card {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.profile-picture-section {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.profile-image,
+.no-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #ddd;
+  display: inline-block;
+}
+
+.upload-button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.form-group {
+  flex: 1;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: none;
+}
+
+button {
+  padding: 0.75rem;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
