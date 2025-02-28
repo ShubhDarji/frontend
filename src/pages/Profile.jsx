@@ -5,219 +5,174 @@ import "./Profile.css";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    address: "",
-    city: "",
-    state: "",
-    zip: "",
-    country: "",
-    deliveryInstructions: "",
-  });
+  const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      const userObj = JSON.parse(storedUser);
-      if (userObj?._id) {
-        setUser(userObj);
-        setFormData({
-          name: userObj.name || "",
-          email: userObj.email || "",
-          phone: userObj.phone || "",
-          address: userObj.address || "",
-          city: userObj.city || "",
-          state: userObj.state || "",
-          zip: userObj.zip || "",
-          country: userObj.country || "",
-          deliveryInstructions: userObj.deliveryInstructions || "",
-        });
-        fetchUserProfile(userObj._id);
-      } else {
-        navigate("/login");
-      }
-    } else {
+    const token = localStorage.getItem("token");
+    if (!token) {
       navigate("/login");
+      return;
     }
+
+    fetchUserProfile();
   }, [navigate]);
 
-  const fetchUserProfile = async (userId) => {
+  const fetchUserProfile = async () => {
     try {
+      setLoading(true);
       const token = localStorage.getItem("token");
-      const res = await axios.get(`http://localhost:5000/api/user/${userId}`, {
+      if (!token) return;
+  
+      const res = await axios.get("http://localhost:5000/api/users/profile", {
         headers: { Authorization: `Bearer ${token}` },
       });
-
-      if (res.data?.profileImage) {
-        setUser((prev) => ({ ...prev, profileImage: res.data.profileImage }));
-      }
+  
+      setUser(res.data || {});
     } catch (err) {
-      console.error("Error fetching profile image:", err);
+      setMessage("Failed to fetch user data.");
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+  const handleFileChange = (e) => {
+    setSelectedFile(e.target.files[0]);
   };
-
-  const updateProfile = async () => {
+  const updateProfile = async (e) => {
+    e.preventDefault();
+    setMessage("");
+  
+    const token = localStorage.getItem("token");
+    if (!token) return;
+  
+    const formData = new FormData();
+  
+    if (selectedFile) {
+      formData.append("profilePicture", selectedFile);
+    }
+  
+    // Append all additional fields
+    formData.append("name", user.name);
+    formData.append("phone", user.phone || "");
+    formData.append("dob", user.dob || "");
+    formData.append("gender", user.gender || "");
+    formData.append("address", user.address || "");
+  
+    console.log("Updating profile with data:", Object.fromEntries(formData)); // Debugging
+  
     try {
-      const token = localStorage.getItem("token");
-      if (!token) throw new Error("User not authenticated");
-
-      const res = await axios.put(
-        "http://localhost:5000/api/user/profile",
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
+      const { data } = await axios.put("http://localhost:5000/api/users/profile", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+  
       setMessage("Profile updated successfully!");
-      localStorage.setItem("user", JSON.stringify(res.data));
-      setUser(res.data);
-    } catch (err) {
-      setMessage(err.response?.data?.message || "Profile update failed");
+      setUser(data);
+      localStorage.setItem("user", JSON.stringify(data));
+    } catch (error) {
+      setMessage("Failed to update profile. Try again.");
     }
   };
 
   return (
     <div className="profile-container">
-      {user ? (
+      {loading ? (
+        <p>Loading...</p>
+      ) : user ? (
         <div className="profile-card">
           <h2>Your Profile</h2>
-
-          <div className="profile-picture-section">
-            {user.profileImage ? (
-              <img
-                src={`http://localhost:5000/uploads/${user.profileImage}`}
-                alt="Profile"
-                className="profile-image"
-              />
-            ) : (
-              <div className="no-image">Profile Picture</div>
-            )}
-            <button className="upload-button">Upload Picture</button>
-          </div>
-
-          <form className="profile-form">
-            <div className="form-row">
-              <div className="form-group">
-                <label>Full Name:</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="form-group">
-                <label>Email:</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  disabled
-                />
-              </div>
-            </div>
-
-            <div className="form-row">
-              <div className="form-group">
-                <label>Phone Number:</label>
-                <input
-                  type="text"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="form-group">
-                <label>Address:</label>
-                <input
-                  type="text"
-                  name="address"
-                  value={formData.address}
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-
-            <div className="form-row">
-              <div className="form-group">
-                <label>City:</label>
-                <input
-                  type="text"
-                  name="city"
-                  value={formData.city}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="form-group">
-                <label>State:</label>
-                <input
-                  type="text"
-                  name="state"
-                  value={formData.state}
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-
-            <div className="form-row">
-              <div className="form-group">
-                <label>ZIP Code:</label>
-                <input
-                  type="text"
-                  name="zip"
-                  value={formData.zip}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="form-group">
-                <label>Country:</label>
-                <select
-                  name="country"
-                  value={formData.country}
-                  onChange={handleChange}
-                >
-                  <option value="">Select a country</option>
-                  <option value="USA">USA</option>
-                  <option value="India">India</option>
-                </select>
-              </div>
+          <p>{message}</p>
+          <form onSubmit={updateProfile}>
+            <div className="form-group">
+              {user.profilePicture ? (
+                <>
+                  <img
+                    src={`http://localhost:5000${user.profilePicture}`}
+                    alt="Profile"
+                    className="profile-image"
+                  />
+                  <button type="button" className="change-picture-btn">
+                    Change Profile Picture
+                  </button>
+                </>
+              ) : (
+                <button type="button" className="add-picture-btn">
+                  Add Profile Picture
+                </button>
+              )}
+              <input type="file" accept="image/*" onChange={handleFileChange} />
             </div>
 
             <div className="form-group">
-              <label>Delivery Instructions:</label>
-              <textarea
-                name="deliveryInstructions"
-                value={formData.deliveryInstructions}
-                onChange={handleChange}
-                placeholder="Any special instructions for delivery (optional)"
+              <label>Full Name:</label>
+              <input
+                type="text"
+                name="name"
+                value={user.name}
+                onChange={(e) => setUser({ ...user, name: e.target.value })}
               />
             </div>
 
-            <button type="button" onClick={updateProfile}>
+            <div className="form-group">
+              <label>Email:</label>
+              <input type="email" name="email" value={user.email} disabled />
+            </div>
+
+            <div className="form-group">
+              <label>Phone Number:</label>
+              <input
+                type="text"
+                name="phone"
+                value={user.phone}
+                onChange={(e) => setUser({ ...user, phone: e.target.value })}
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Date of Birth:</label>
+              <input
+                type="date"
+                name="dob"
+                value={user.dob || ""}
+                onChange={(e) => setUser({ ...user, dob: e.target.value })}
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Gender:</label>
+              <select
+                name="gender"
+                value={user.gender || ""}
+                onChange={(e) => setUser({ ...user, gender: e.target.value })}
+              >
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label>Address:</label>
+              <textarea
+                name="address"
+                value={user.address || ""}
+                onChange={(e) => setUser({ ...user, address: e.target.value })}
+              ></textarea>
+            </div>
+
+            <button className="btn" type="submit">
               Update Profile
             </button>
           </form>
-
-          {message && <p className="message">{message}</p>}
         </div>
       ) : (
-        <p>Loading...</p>
+        <p>Error loading profile. Please try again.</p>
       )}
     </div>
   );

@@ -1,94 +1,117 @@
-import { useEffect } from "react";
-import { Col, Container, Row } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  addToCart,
-  decreaseQty,
-  deleteProduct,
-} from "../app/features/cart/cartSlice";
+// src/features/cart/Cart.jsx
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart, decreaseQty, deleteProduct } from '../app/features/cart/cartSlice';
+import './cart.css';
 
 const Cart = () => {
-  const { cartList } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  const cartList = useSelector((state) => state.cart.cartList);
 
-  // Calculate total price dynamically
-  const totalPrice = cartList.reduce(
-    (price, item) => price + item.qty * item.price,
-    0
-  );
+  // Calculate total price
+  const totalPrice = cartList.reduce((total, item) => total + item.qty * item.price, 0);
 
-  // Update localStorage whenever cartList changes
+  // Load cart from localStorage on mount
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cartList));
-    window.dispatchEvent(new Event("storage")); // Notify other components (Navbar)
+    try {
+      const savedCart = JSON.parse(localStorage.getItem('cart'));
+      if (savedCart && Array.isArray(savedCart)) {
+        savedCart.forEach((item) => {
+          if (item && item.id) {
+            dispatch(addToCart(item));
+          } else {
+            console.error('Invalid item in saved cart:', item);
+          }
+        });
+      }
+    } catch (error) {
+      console.error('Failed to load cart from localStorage:', error);
+    }
+  }, [dispatch]);
+
+  // Save cart to localStorage when cartList changes
+  useEffect(() => {
+    try {
+      localStorage.setItem('cart', JSON.stringify(cartList));
+    } catch (error) {
+      console.error('Failed to save cart to localStorage:', error);
+    }
   }, [cartList]);
 
+  const handleAddToCart = (product) => {
+    if (product && product.id) {
+      dispatch(addToCart(product));
+    } else {
+      console.error('Invalid product data:', product);
+    }
+  };
+
+  const handleDecreaseQty = (productId) => {
+    if (productId) {
+      dispatch(decreaseQty(productId));
+    } else {
+      console.error('Invalid product ID:', productId);
+    }
+  };
+
+  const handleDeleteProduct = (productId) => {
+    if (productId) {
+      dispatch(deleteProduct(productId));
+    } else {
+      console.error('Invalid product ID:', productId);
+    }
+  };
+
   return (
-    <section className="cart-items">
-      <Container>
-        <Row className="justify-content-center">
-          <Col md={8}>
-            {cartList.length === 0 ? (
-              <h1 className="no-items product">No Items are added in Cart</h1>
-            ) : (
-              cartList.map((item) => {
-                const productQty = item.price * item.qty;
-                return (
-                  <div className="cart-list" key={item.id}>
-                    <Row>
-                      <Col className="image-holder" sm={4} md={3}>
-                        <img src={item.imgUrl} alt="" />
-                      </Col>
-                      <Col sm={8} md={9}>
-                        <Row className="cart-content justify-content-center">
-                          <Col xs={12} sm={9} className="cart-details">
-                            <h3>{item.productName}</h3>
-                            <h4>
-                              ₹{item.price}.00 × {item.qty}
-                              <span> = ₹{productQty}.00</span>
-                            </h4>
-                          </Col>
-                          <Col xs={12} sm={3} className="cartControl">
-                            <button
-                              className="incCart"
-                              onClick={() =>
-                                dispatch(addToCart({ product: item, num: 1 }))
-                              }
-                            >
-                              <i className="fa-solid fa-plus"></i>
-                            </button>
-                            <button
-                              className="desCart"
-                              onClick={() => dispatch(decreaseQty(item))}
-                            >
-                              <i className="fa-solid fa-minus"></i>
-                            </button>
-                          </Col>
-                        </Row>
-                      </Col>
+    <section className="cart-section">
+      <div className="container">
+        {cartList.length === 0 ? (
+          <h1 className="empty-cart">Your Cart is Empty</h1>
+        ) : (
+          <div className="cart-container">
+            <div className="cart-items">
+              {cartList.map((item) => (
+                <div className="cart-item" key={item.id}>
+                  <img src={item.imgUrl} alt={item.name} className="cart-item-image" />
+                  <div className="cart-item-details">
+                    <h3 className="cart-item-title">{item.name}</h3>
+                    <p className="cart-item-price">₹{item.price.toFixed(2)}</p>
+                    <div className="cart-item-quantity">
                       <button
-                        className="delete"
-                        onClick={() => dispatch(deleteProduct(item))}
+                        className="quantity-btn"
+                        onClick={() => handleDecreaseQty(item.id)}
                       >
-                        <ion-icon name="close"></ion-icon>
+                        -
                       </button>
-                    </Row>
+                      <span className="quantity">{item.qty}</span>
+                      <button
+                        className="quantity-btn"
+                        onClick={() => handleAddToCart(item)}
+                      >
+                        +
+                      </button>
+                    </div>
+                    <button
+                      className="remove-btn"
+                      onClick={() => handleDeleteProduct(item.id)}
+                    >
+                      Remove
+                    </button>
                   </div>
-                );
-              })
-            )}
-          </Col>
-          <Col md={4}>
-            <div className="cart-total">
-              <h2>Cart Summary</h2>
-              <div className="d_flex">
-                <h4>Total Price :</h4>
-                <h3>₹{totalPrice}.00</h3>
-              </div>
+                </div>
+              ))}
             </div>
-          </Col>
-        </Row>
-      </Container>
+            <div className="cart-summary">
+              <h2>Order Summary</h2>
+              <div className="summary-details">
+                <p>Total Items: {cartList.length}</p>
+                <p>Total Price: ₹{totalPrice.toFixed(2)}</p>
+              </div>
+              <button className="checkout-btn">Proceed to Checkout</button>
+            </div>
+          </div>
+        )}
+      </div>
     </section>
   );
 };

@@ -1,69 +1,64 @@
-import { createSlice } from "@reduxjs/toolkit";
-
-const storedCartList =
-  localStorage.getItem("cartList") !== null
-    ? JSON.parse(localStorage.getItem("cartList"))
-    : [];
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  cartList: storedCartList,
+  cartList: [],
 };
 
-export const cartSlice = createSlice({
-  name: "cart",
+const cartSlice = createSlice({
+  name: 'cart',
   initialState,
   reducers: {
     addToCart: (state, action) => {
-      const productToAdd = action.payload.product;
-      const quantity = action.payload.num;
-      const productExit = state.cartList.find(
-        (item) => item.id === productToAdd.id
-      );
-      if (productExit) {
-        state.cartList = state.cartList.map((item) =>
-          item.id === action.payload.product.id
-            ? { ...productExit, qty: productExit.qty + action.payload.num }
-            : item
-        );
+      const product = action.payload;
+      if (!product || !product.id) {
+        console.error('Invalid product data:', product);
+        return;
+      }
+      const existingItem = state.cartList.find((item) => item.id === product.id);
+      if (existingItem) {
+        existingItem.qty += 1;
       } else {
-        state.cartList.push({ ...productToAdd, qty: quantity });
+        state.cartList.push({ ...product, qty: 1 });
       }
     },
     decreaseQty: (state, action) => {
-      const productTodecreaseQnty = action.payload;
-      const productExit = state.cartList.find(
-        (item) => item.id === productTodecreaseQnty.id
-      );
-      if (productExit.qty === 1) {
-        state.cartList = state.cartList.filter(
-          (item) => item.id !== productExit.id
-        );
+      const productId = action.payload;
+      if (!productId) {
+        console.error('Invalid product ID:', productId);
+        return;
+      }
+      const existingItem = state.cartList.find((item) => item.id === productId);
+      if (existingItem) {
+        if (existingItem.qty > 1) {
+          existingItem.qty -= 1;
+        } else {
+          state.cartList = state.cartList.filter((item) => item.id !== productId);
+        }
       } else {
-        state.cartList = state.cartList.map((item) =>
-          item.id === productExit.id
-            ? { ...productExit, qty: productExit.qty - 1 }
-            : item
-        );
+        console.error('Product not found in cart:', productId);
       }
     },
     deleteProduct: (state, action) => {
-      const productToDelete = action.payload;
-      state.cartList = state.cartList.filter(
-        (item) => item.id !== productToDelete.id
-      );
+      const productId = action.payload;
+      if (!productId) {
+        console.error('Invalid product ID:', productId);
+        return;
+      }
+      const existingItem = state.cartList.find((item) => item.id === productId);
+      if (existingItem) {
+        state.cartList = state.cartList.filter((item) => item.id !== productId);
+      } else {
+        console.error('Product not found in cart:', productId);
+      }
     },
   },
 });
 
+// Define cartMiddleware
 export const cartMiddleware = (store) => (next) => (action) => {
-  const result = next(action);
-  if (action.type?.startsWith("cart/")) {
-    const cartList = store.getState().cart.cartList;
-    localStorage.setItem("cartList", JSON.stringify(cartList));
-  }
-  return result;
+  console.log('Dispatching action:', action);
+  return next(action);
 };
 
 export const { addToCart, decreaseQty, deleteProduct } = cartSlice.actions;
-
 export default cartSlice.reducer;

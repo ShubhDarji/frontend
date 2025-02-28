@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "./navbar.css"; 
-import SearchBar from "../SeachBar/SearchBar"
-import CloseIcon from "../../Images/svgs/close_FILL0_wght400_GRAD0_opsz48.svg";
-import MenuIcon from "../../Images/svgs/menu_FILL0_wght400_GRAD0_opsz48.svg";
-import CartIcon from "../../Images/svgs/shopping-cart-01-svgrepo-com.svg";
-import UserIcon from "../../Images/svgs/user-icon.svg"; // Add user icon
-import Logo from "../../Images/logo.png";
+import { Menu, X, ShoppingCart, User } from "lucide-react";
+import "./navbar.css";
 
 const Navbar = () => {
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
@@ -14,66 +9,71 @@ const Navbar = () => {
 
   useEffect(() => {
     const updateCartCount = () => {
-      const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
-      setCartCount(storedCart.length);
+      setCartCount(JSON.parse(localStorage.getItem("cart") || "[]").length);
     };
 
-    updateCartCount(); // Update on mount
+    updateCartCount();
     window.addEventListener("storage", updateCartCount);
-    
-    return () => {
-      window.removeEventListener("storage", updateCartCount);
-    };
+
+    return () => window.removeEventListener("storage", updateCartCount);
   }, []);
 
   return (
-    <nav className="navbar">
-      {/* Mobile Sidebar */}
-      <ul className={`sidebar ${isSidebarVisible ? "visible" : ""}`}>
-        <li onClick={() => setIsSidebarVisible(false)}>
-          <img src={CloseIcon} alt="Close menu" width={26} height={26} />
-        </li>
-        <li><Link to="/">Festival Offer</Link></li>
-        <li><Link to="/shop">Products</Link></li>
-        <li><Link to="/about">About</Link></li>
-        <li><Link to="/cart">
-          <img src={CartIcon} alt="Cart" width={26} height={26} />
-          {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
-        </Link></li>
-      </ul>
-
-      {/* Desktop & Mobile Navbar */}
-      <div className="navbar-container">
-        {/* Mobile Menu Button */}
-        <button className="menu-btn" onClick={() => setIsSidebarVisible(true)}>
-          <img src={MenuIcon} alt="Menu" width={26} height={26} />
-        </button>
-
-        {/* Logo */}
+    <>
+      {/* Navbar */}
+      <nav className="navbar">
         <Link to="/" className="logo">
-          <img src={Logo} alt="Smart Appliances" />
+          E-TEK<span>Online Store</span>
         </Link>
 
-        {/* Desktop Nav Links */}
-        <ul className="nav-links hideOnMobile">
-          <li><Link to="/shop">Products</Link></li>
-          <li><Link to="/">Festival Offers</Link></li>
+        {/* Desktop Navigation */}
+        <ul className="nav-links">
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/shop">Shop</Link></li>
+          <li><Link to="/login">Login</Link></li>
           <li><Link to="/about">About</Link></li>
+          <li><Link to="/contact">Contact</Link></li>
         </ul>
 
-        {/* Search Bar */}
-        <SearchBar />
-
-        {/* User & Cart Icons */}
-        <div className="icons">
-          <Link to="/profile"><img src={UserIcon} alt="User" width={26} height={26} /></Link>
-          <Link to="/cart" className="cart-icon">
-            <img src={CartIcon} alt="Cart" width={26} height={26} />
-            {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
+        {/* Icons */}
+        <div className="icon-container">
+          <Link to="/profile" aria-label="Profile"><User /></Link>
+          <Link to="/cart" className="cart-icon" aria-label="Cart">
+            <ShoppingCart />
+            {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
           </Link>
+
+          {/* Mobile Toggle Button (only visible on small screens) */}
+          <button
+            className="mobile-toggle"
+            onClick={() => setIsSidebarVisible(true)}
+            aria-label="Open Menu"
+          >
+            <Menu />
+          </button>
+        </div>
+      </nav>
+
+      {/* Mobile Sidebar */}
+      <div className={`mobile-overlay ${isSidebarVisible ? "show" : ""}`}>
+        <div className="mobile-menu">
+          <button
+            className="close-btn"
+            onClick={() => setIsSidebarVisible(false)}
+            aria-label="Close Menu"
+          >
+            <X />
+          </button>
+          <ul>
+            <li><Link to="/" onClick={() => setIsSidebarVisible(false)}>Home</Link></li>
+            <li><Link to="/shop" onClick={() => setIsSidebarVisible(false)}>Shop</Link></li>
+            <li><Link to="/login" onClick={() => setIsSidebarVisible(false)}>Login</Link></li>
+            <li><Link to="/about" onClick={() => setIsSidebarVisible(false)}>About</Link></li>
+            <li><Link to="/contact" onClick={() => setIsSidebarVisible(false)}>Contact</Link></li>
+          </ul>
         </div>
       </div>
-    </nav>
+    </>
   );
 };
 

@@ -1,22 +1,18 @@
 import { useState } from "react";
-import { products } from "../../utils/products";
-import "./searchbar.css"
+import "./searchbar.css";
 
-const SearchBar = ({ setFilterList }) => {
-  const [searchWord, setSearchWord] = useState("");
+const SearchBar = ({ setSearchWord }) => {
+  const [search, setSearch] = useState("");
 
   const handleChange = (e) => {
     const keyword = e.target.value;
+    setSearch(keyword);
     setSearchWord(keyword);
-    const filtered = products.filter((item) =>
-      item.productName.toLowerCase().includes(keyword.toLowerCase())
-    );
-    setFilterList(filtered);
   };
 
   return (
     <div className="search-container">
-      <input type="text" placeholder="Search..." value={searchWord} onChange={handleChange} />
+      <input type="text" placeholder="Search..." value={search} onChange={handleChange} />
     </div>
   );
 };

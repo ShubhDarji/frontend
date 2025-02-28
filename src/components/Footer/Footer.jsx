@@ -1,34 +1,46 @@
 import React from "react";
-import "./style.css";
-import { Container, Row, Col } from "react-bootstrap";
+import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
+import { Link } from "react-router-dom"; // Import Link from React Router
+import "./style.css"; // Import the CSS file
 
 const Footer = () => {
   return (
     <footer className="footer">
-      <Container>
-        <Row>
-          <Col md={6} className="footer-section">
-            <h4>About Us</h4>
-            <p>Your one-stop destination for the latest and most reliable home appliances. Quality products at unbeatable prices!</p>
-          </Col>
-          <Col md={3} className="footer-section">
-            <h4>Quick Links</h4>
+      <div className="container01">
+        <div className="footer-top">
+          <div className="footer-logo">
+            <h2>ShopZone</h2>
+            <p>Your one-stop shop for the best deals!</p>
+          </div>
+
+          <div className="footer-links">
+            <h3>Quick Links</h3>
             <ul>
-              <li>Careers</li>
-              <li>Partners</li>
-              <li>Terms & Conditions</li>
-              <li>Privacy Policy</li>
+              <li><Link to="/about">About Us</Link></li>
+              <li><Link to="/contact">Contact</Link></li>
+              <li><Link to="/faq">FAQs</Link></li>
+              <li><Link to="/privacy">Privacy Policy</Link></li>
+              <li><Link to="/sell-with-us" className="sell-link">Sell With Us</Link></li> {/* Added Sell With Us */}
             </ul>
-          </Col>
-          <Col md={3} className="footer-section">
-            <h4>Contact Us</h4>
-            <p>Email: shubhdarji7743@gmail.com</p>
-            <p>Phone: +91 76210 79669</p>
-          </Col>
-        </Row>
+          </div>
+
+          <div className="footer-social">
+            <h3>Follow Us</h3>
+            <div className="social-icons">
+              <a href="#"><FaFacebookF /></a>
+              <a href="#"><FaTwitter /></a>
+              <a href="#"><FaInstagram /></a>
+              <a href="#"><FaLinkedin /></a>
+            </div>
+          </div>
+        </div>
+
         <hr />
-        <p className="text-center">&copy; {new Date().getFullYear()} YourBrand. All rights reserved.</p>
-      </Container>
+
+        <div className="footer-bottom">
+          <p>© {new Date().getFullYear()} ShopZone. All Rights Reserved.</p>
+        </div>
+      </div>
     </footer>
   );
 };
