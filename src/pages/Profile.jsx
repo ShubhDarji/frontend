@@ -4,7 +4,15 @@ import { useNavigate } from "react-router-dom";
 import "./Profile.css";
 
 const Profile = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    dob: "",
+    gender: "",
+    address: "",
+    bio: "",
+  });
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
@@ -16,7 +24,6 @@ const Profile = () => {
       navigate("/login");
       return;
     }
-
     fetchUserProfile();
   }, [navigate]);
 
@@ -25,11 +32,11 @@ const Profile = () => {
       setLoading(true);
       const token = localStorage.getItem("token");
       if (!token) return;
-  
+
       const res = await axios.get("http://localhost:5000/api/users/profile", {
         headers: { Authorization: `Bearer ${token}` },
       });
-  
+
       setUser(res.data || {});
     } catch (err) {
       setMessage("Failed to fetch user data.");
@@ -41,36 +48,39 @@ const Profile = () => {
   const handleFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
   };
+
+  const handleChange = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
+
   const updateProfile = async (e) => {
     e.preventDefault();
     setMessage("");
-  
+
     const token = localStorage.getItem("token");
     if (!token) return;
-  
+
     const formData = new FormData();
-  
     if (selectedFile) {
       formData.append("profilePicture", selectedFile);
     }
-  
-    // Append all additional fields
-    formData.append("name", user.name);
-    formData.append("phone", user.phone || "");
-    formData.append("dob", user.dob || "");
-    formData.append("gender", user.gender || "");
-    formData.append("address", user.address || "");
-  
-    console.log("Updating profile with data:", Object.fromEntries(formData)); // Debugging
-  
+
+    for (const key in user) {
+      formData.append(key, user[key] || "");
+    }
+
     try {
-      const { data } = await axios.put("http://localhost:5000/api/users/profile", formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data",
-        },
-      });
-  
+      const { data } = await axios.put(
+        "http://localhost:5000/api/users/profile",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
       setMessage("Profile updated successfully!");
       setUser(data);
       localStorage.setItem("user", JSON.stringify(data));
@@ -90,20 +100,13 @@ const Profile = () => {
           <form onSubmit={updateProfile}>
             <div className="form-group">
               {user.profilePicture ? (
-                <>
-                  <img
-                    src={`http://localhost:5000${user.profilePicture}`}
-                    alt="Profile"
-                    className="profile-image"
-                  />
-                  <button type="button" className="change-picture-btn">
-                    Change Profile Picture
-                  </button>
-                </>
+                <img
+                  src={`http://localhost:5000${user.profilePicture}`}
+                  alt="Profile"
+                  className="profile-image"
+                />
               ) : (
-                <button type="button" className="add-picture-btn">
-                  Add Profile Picture
-                </button>
+                <p>No Profile Picture</p>
               )}
               <input type="file" accept="image/*" onChange={handleFileChange} />
             </div>
@@ -114,7 +117,7 @@ const Profile = () => {
                 type="text"
                 name="name"
                 value={user.name}
-                onChange={(e) => setUser({ ...user, name: e.target.value })}
+                onChange={handleChange}
               />
             </div>
 
@@ -124,12 +127,12 @@ const Profile = () => {
             </div>
 
             <div className="form-group">
-              <label>Phone Number:</label>
+              <label>Phone:</label>
               <input
                 type="text"
                 name="phone"
                 value={user.phone}
-                onChange={(e) => setUser({ ...user, phone: e.target.value })}
+                onChange={handleChange}
               />
             </div>
 
@@ -138,31 +141,37 @@ const Profile = () => {
               <input
                 type="date"
                 name="dob"
-                value={user.dob || ""}
-                onChange={(e) => setUser({ ...user, dob: e.target.value })}
+                value={user.dob}
+                onChange={handleChange}
               />
             </div>
 
             <div className="form-group">
               <label>Gender:</label>
-              <select
-                name="gender"
-                value={user.gender || ""}
-                onChange={(e) => setUser({ ...user, gender: e.target.value })}
-              >
+              <select name="gender" value={user.gender} onChange={handleChange}>
                 <option value="">Select Gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
               </select>
             </div>
 
             <div className="form-group">
               <label>Address:</label>
-              <textarea
+              <input
+                type="text"
                 name="address"
-                value={user.address || ""}
-                onChange={(e) => setUser({ ...user, address: e.target.value })}
+                value={user.address}
+                onChange={handleChange}
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Bio:</label>
+              <textarea
+                name="bio"
+                value={user.bio}
+                onChange={handleChange}
               ></textarea>
             </div>
 

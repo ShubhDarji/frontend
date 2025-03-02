@@ -8,14 +8,14 @@ const AdminPasskey = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (passkey === "7743") {
-      navigate("/admin-signup"); // ✅ Allow access if passkey is correct
+      navigate("/admin-signup"); // ✅ Correct Passkey -> Go to Signup
     } else {
-      navigate("/"); // ❌ Redirect to home if incorrect
+      alert("Incorrect Passkey!");
     }
   };
 
   return (
-    <div>
+    <div className="admin-passkey-container">
       <h2>Admin Access</h2>
       <p>Enter the secret passkey to continue:</p>
       <form onSubmit={handleSubmit}>

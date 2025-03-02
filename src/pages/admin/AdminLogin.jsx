@@ -13,10 +13,7 @@ const AdminLogin = () => {
     setError("");
 
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/login", { 
-        email, 
-        password 
-      }, {
+      const res = await axios.post("http://localhost:5000/api/admin/login", { email, password }, {
         headers: { "Content-Type": "application/json" },
       });
 
@@ -30,11 +27,7 @@ const AdminLogin = () => {
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
 
-      // ✅ Redirect to dashboard after a short delay
-      setTimeout(() => {
-        navigate("/admin-dashboard");
-      }, 500);
-
+      navigate("/admin-dashboard");
     } catch (err) {
       setError(err.response?.data?.message || "Login failed. Please try again.");
     }

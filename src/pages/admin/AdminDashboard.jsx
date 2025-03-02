@@ -4,73 +4,99 @@ import { useNavigate } from "react-router-dom";
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
+  const [sellers, setSellers] = useState([]); // ✅ FIX: Defined sellers state
+  const [admins, setAdmins] = useState([]); // ✅ FIX: Defined admins state
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [processing, setProcessing] = useState(null);
   const navigate = useNavigate();
 
-  // ✅ Redirect non-admin users
+  // ✅ Check Admin Authentication
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
-    if (!user || user.role !== "admin") {
+    const token = localStorage.getItem("token");
+
+    if (!user || user.role !== "admin" || !token) {
+      setMessage("Access Denied: Admins only.");
       navigate("/admin-login");
+      return;
     }
+
+    fetchUsers();
   }, [navigate]);
 
-  // ✅ Fetch Users Function
+  // ✅ Fetch Users, Sellers, and Admins
   const fetchUsers = async () => {
     try {
+      setLoading(true);
       const token = localStorage.getItem("token");
-      console.log("📡 Fetching all users");
 
       const res = await axios.get("http://localhost:5000/api/admin/users", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      setUsers(res.data);
+      console.log("🔹 API Response:", res.data);
+
+      if (res.data) {
+        setUsers(res.data.users || []);
+        setSellers(res.data.sellers || []);
+        setAdmins(res.data.admins || []);
+      }
     } catch (error) {
-      console.error("❌ Fetch users error:", error.response?.data);
-      setMessage("Error fetching users");
+      console.error("❌ Fetch users error:", error.response?.data || error.message);
+      setMessage("Failed to fetch users.");
+    } finally {
+      setLoading(false);
     }
   };
 
-  // ✅ Fetch users on component mount
-  useEffect(() => {
-    fetchUsers();
-  }, []);
-
-  // ✅ Approve Seller
+  // ✅ Approve Seller Function
   const approveSeller = async (userId) => {
     try {
+      setProcessing(userId); // Show "Processing..." on the button
       const token = localStorage.getItem("token");
-      console.log("📡 Sending approval request for seller:", userId);
-
-      await axios.put(`http://localhost:5000/api/admin/approve-seller/${userId}`, {}, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
-      setUsers((prevUsers) =>
-        prevUsers.map(user =>
-          user._id === userId ? { ...user, isApproved: true } : user
+  
+      const res = await axios.put(
+        `http://localhost:5000/api/admin/approve-seller/${userId}`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+  
+      // ✅ Update state to show seller as approved instantly
+      setSellers((prevSellers) =>
+        prevSellers.map((seller) =>
+          seller._id === userId ? { ...seller, isApproved: true } : seller
         )
       );
-      setMessage("Seller approved successfully!");
+  
+      setMessage(res.data.message || "Seller approved successfully!");
     } catch (error) {
       console.error("❌ Approval error:", error.response?.data);
-      setMessage("Failed to approve seller");
+      setMessage("Failed to approve seller.");
+    } finally {
+      setProcessing(null); // Reset button state
     }
   };
+  
 
-  // ✅ Delete User
-  const deleteUser = async (userId) => {
+  // ✅ Delete Seller Function
+  const deleteSeller = async (userId) => {
     try {
+      setProcessing(userId);
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:5000/api/admin/user/${userId}`, {
+
+      await axios.delete(`http://localhost:5000/api/admin/delete-seller/${userId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      setUsers((prevUsers) => prevUsers.filter(user => user._id !== userId));
-      setMessage("User deleted successfully!");
+      setSellers((prevSellers) => prevSellers.filter((seller) => seller._id !== userId));
+
+      setMessage("Seller deleted successfully!");
     } catch (error) {
-      setMessage("Failed to delete user");
+      console.error("❌ Delete error:", error.response?.data);
+      setMessage("Failed to delete seller.");
+    } finally {
+      setProcessing(null);
     }
   };
 
@@ -79,33 +105,113 @@ const AdminDashboard = () => {
       <h2>Admin Dashboard</h2>
       {message && <p className="message">{message}</p>}
 
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map(user => (
-            <tr key={user._id}>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <td>{user.role}</td>
-              <td>{user.role === "seller" ? (user.isApproved ? "Approved" : "Pending") : "N/A"}</td>
-              <td>
-                {user.role === "seller" && !user.isApproved && (
-                  <button onClick={() => approveSeller(user._id)} className="approve-btn">Approve</button>
-                )}
-                <button onClick={() => deleteUser(user._id)} className="delete-btn">Delete</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {loading ? (
+        <p>Loading users...</p>
+      ) : (
+        <>
+          {/* ✅ Users Table */}
+          <h3>Users</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.length > 0 ? (
+                users.map((user) => (
+                  <tr key={user._id}>
+                    <td>{user.name}</td>
+                    <td>{user.email}</td>
+                    <td>{user.role}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="3">No users found.</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+
+          {/* ✅ Sellers Table */}
+          <h3>Sellers</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sellers.length > 0 ? (
+                sellers.map((seller) => (
+                  <tr key={seller._id}>
+                    <td>{seller.name}</td>
+                    <td>{seller.email}</td>
+                    <td>
+                      {seller.isApproved ? "✅ Approved" : "⏳ Pending"}
+                    </td>
+                    <td>
+                      {!seller.isApproved && (
+                        <button
+                          onClick={() => approveSeller(seller._id)}
+                          className="approve-btn"
+                          disabled={processing === seller._id}
+                        >
+                          {processing === seller._id ? "Processing..." : "Approve"}
+                        </button>
+                      )}
+                      <button
+                        onClick={() => deleteSeller(seller._id)}
+                        className="delete-btn"
+                        disabled={processing === seller._id}
+                      >
+                        {processing === seller._id ? "Processing..." : "Delete"}
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="4">No sellers found.</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+
+          {/* ✅ Admins Table */}
+          <h3>Admins</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+              </tr>
+            </thead>
+            <tbody>
+              {admins.length > 0 ? (
+                admins.map((admin) => (
+                  <tr key={admin._id}>
+                    <td>{admin.name}</td>
+                    <td>{admin.email}</td>
+                    <td>{admin.role}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="3">No admins found.</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </>
+      )}
     </div>
   );
 };

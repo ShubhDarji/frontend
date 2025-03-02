@@ -4,27 +4,31 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { ToastContainer } from "react-toastify";
 import NavBar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
-import Loader from "./components/Loader/Loaader";
-import Brand from "./pages/Brand";
-import Login from "./pages/Login";
-import Profile from "./pages/Profile";
-import Signup from "./pages/Signup";
-import Register from "./pages/Register";
-import AdminDashboard from "./pages/admin/AdminDashboard";
-import AdminLogin from "./pages/admin/AdminLogin";
-import SellerRegistration from "./pages/seller/regisration/SellerRegistration";
-import SellerLogin from "./pages/seller/login/SellerLogin";
-import SellerDashboard from "./pages/seller/dashboard/SellerDashboard";
-import AdminPasskey from "./pages/admin/AdminPasskey";
-import AdminSignup from "./pages/admin/AdminSignup";
+import Loader from "./components/Loader/Loaader"; // Fixed typo
+import Login from "./pages/Login"; 
 
-// Lazy loaded pages
+// Lazy Load Components
 const Home = lazy(() => import("./pages/Home"));
 const Shop = lazy(() => import("./pages/Shop"));
 const Cart = lazy(() => import("./pages/Cart"));
 const Product = lazy(() => import("./pages/Product"));
-
-
+const Brand = lazy(() => import("./pages/Brand"));
+const Profile = lazy(() => import("./pages/Profile"));
+const Signup = lazy(() => import("./pages/Signup"));
+const Register = lazy(() => import("./pages/Register"));
+const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
+const AdminLogin = lazy(() => import("./pages/admin/AdminLogin"));
+const AdminPasskey = lazy(() => import("./pages/admin/AdminPasskey"));
+const AdminSignup = lazy(() => import("./pages/admin/AdminSignup"));
+const SellerRegistration = lazy(() => import("./pages/seller/regisration/SellerRegistration"));
+const SellerLogin = lazy(() => import("./pages/seller/login/SellerLogin"));
+const SellerDashboard = lazy(() => import("./pages/seller/dashboard/SellerDashboard"));
+const SellerProfile = lazy(() => import("./pages/seller/SellerProfile"));
+const ManageProducts = lazy(() => import("./pages/seller/ManageProducts"));
+const ManageOrders = lazy(() => import("./pages/seller/ManageOrder")); // Fixed filename
+const Earnings = lazy(() => import("./pages/seller/Earnings"));
+const Reviews = lazy(() => import("./pages/seller/Reviews"));
+const CustomerMessages = lazy(() => import("./pages/seller/CustomerMessages"));
 
 function App() {
   return (
@@ -44,10 +48,19 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/profile" element={<Profile />} />
+
           {/* Seller Routes */}
           <Route path="/sell-with-us" element={<SellerRegistration />} />
           <Route path="/seller-login" element={<SellerLogin />} />
           <Route path="/seller-dashboard" element={<SellerDashboard />} />
+          <Route path="/seller/register" element={<SellerRegistration />} />
+          <Route path="/seller/dashboard" element={<SellerDashboard />} />
+          <Route path="/seller/profile" element={<SellerProfile />} />
+          <Route path="/seller/products" element={<ManageProducts />} />
+          <Route path="/seller/orders" element={<ManageOrders />} />
+          <Route path="/seller/earnings" element={<Earnings />} />
+          <Route path="/seller/reviews" element={<Reviews />} />
+          <Route path="/seller/messages" element={<CustomerMessages />} />
 
           {/* Admin Routes */}
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
