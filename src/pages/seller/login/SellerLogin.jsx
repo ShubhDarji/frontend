@@ -1,35 +1,30 @@
 import React, { useState } from "react";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 const SellerLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
     if (!email || !password) {
       setMessage("Please fill in both fields.");
       return;
     }
 
-    try {
-      const res = await axios.post("http://localhost:5000/api/seller/login", {
-        email,
-        password,
-      }, {
-        headers: { "Content-Type": "application/json" } // ✅ Ensure JSON content
-      });
 
-      console.log("✅ Login Response:", res.data);
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("seller", JSON.stringify(res.data.seller));
+    try {
+      const res = await axios.post("http://localhost:5000/api/seller/login", { email, password });
+
+      const { token, seller } = res.data;
+      localStorage.setItem("sellerToken", token);
+      localStorage.setItem("sellerData", JSON.stringify(seller));
 
       setMessage("Login successful!");
-      window.location.href = "/seller-dashboard"; // Redirect to dashboard
+      navigate("/seller-dashboard");
     } catch (error) {
-      console.error("❌ Login Error:", error.response?.data);
       setMessage(error.response?.data?.message || "Login failed.");
     }
   };

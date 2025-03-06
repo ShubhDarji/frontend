@@ -67,6 +67,8 @@ const SellerRegistration = () => {
   // ✅ Submit Form
   const onSubmit = async (data) => {
     setErrorMessage("");
+  
+    // ✅ Prepare form data
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("email", data.email);
@@ -76,12 +78,13 @@ const SellerRegistration = () => {
     formData.append("address", data.address);
     formData.append("password", data.password);
     formData.append("proof", data.proof); // ✅ Fix file upload issue
-
+  
     try {
-      const res = await axios.post("http://localhost:5000/api/seller/register", formData, {
+      // ✅ Send request to Seller Registration API
+      const res = await axios.post("http://localhost:5000/api/sellers/register", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-
+  
       if (res.status === 201) {
         alert("Registration successful! Please log in after approval.");
         navigate("/seller-login");
@@ -90,6 +93,7 @@ const SellerRegistration = () => {
       setErrorMessage(error.response?.data?.message || "Registration failed. Please try again.");
     }
   };
+  
 
   return (
     <div className="seller-registration-container">

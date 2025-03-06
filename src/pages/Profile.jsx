@@ -32,18 +32,30 @@ const Profile = () => {
       setLoading(true);
       const token = localStorage.getItem("token");
       if (!token) return;
-
+  
       const res = await axios.get("http://localhost:5000/api/users/profile", {
         headers: { Authorization: `Bearer ${token}` },
       });
-
-      setUser(res.data || {});
+  
+      if (res.data) {
+        setUser({
+          name: res.data.name || "",
+          email: res.data.email || "",
+          phone: res.data.phone || "",
+          dob: res.data.dob || "",
+          gender: res.data.gender ? res.data.gender.toLowerCase() : "",
+          address: res.data.address || "",
+          bio: res.data.bio || "",
+        });
+      }
     } catch (err) {
       setMessage("Failed to fetch user data.");
     } finally {
       setLoading(false);
     }
   };
+  
+  
 
   const handleFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
@@ -148,12 +160,12 @@ const Profile = () => {
 
             <div className="form-group">
               <label>Gender:</label>
-              <select name="gender" value={user.gender} onChange={handleChange}>
-                <option value="">Select Gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
-              </select>
+              <select name="gender" value={user.gender || ""} onChange={handleChange}>
+  <option value="">Select Gender</option>
+  <option value="male">Male</option>
+  <option value="female">Female</option>
+  <option value="other">Other</option>
+</select>
             </div>
 
             <div className="form-group">

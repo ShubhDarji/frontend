@@ -4,7 +4,7 @@ import { DollarCircleOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import axios from "axios";
 import SellerSidebar from "../../../components/seller/SellerSidebar";
 import SellerNavbar from "../../../components/seller/SellerNavbar";
-
+import ChatBox from "../../../components/seller/ChatBox";
 const { Content, Header } = Layout;
 const { Title } = Typography;
 
@@ -92,6 +92,7 @@ const SellerDashboard = () => {
               scroll={{ x: true }}
             />
           </Card>
+          
         </Content>
       </Layout>
     </Layout>

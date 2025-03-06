@@ -14,7 +14,7 @@ const ProductCard = ({ productItem }) => {
 
   const handleAdd = (productItem) => {
 
-    dispatch(addToCart({ product: productItem, num: 1 }));
+    dispatch(addToCart({ ...productItem, qty: 1 }));
 
     toast.success("Product has been added to cart!");
 

@@ -22,11 +22,12 @@ const cartSlice = createSlice({
       }
     },
     decreaseQty: (state, action) => {
-      const productId = action.payload;
-      if (!productId) {
-        console.error('Invalid product ID:', productId);
+      const { id, productName, price, imgUrl, qty } = action.payload;
+      if (!id) {
+        console.error("Invalid product data:", action.payload);
         return;
       }
+      
       const existingItem = state.cartList.find((item) => item.id === productId);
       if (existingItem) {
         if (existingItem.qty > 1) {
